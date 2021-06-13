@@ -19,11 +19,6 @@ import java.io.File
 import javax.inject.Inject
 
 
-/** Created by tauheed on 07, June, 2021
- * ADIB,
- * AbuDhabi, UAE.
- */
-
 open class ApiClient @Inject constructor(
         @ApplicationContext private val context: Context,
         private val apiInterface: ApiInterface

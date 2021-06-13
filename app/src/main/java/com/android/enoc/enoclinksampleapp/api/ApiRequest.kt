@@ -5,10 +5,7 @@ import kotlin.collections.HashMap
 import kotlin.collections.Map
 
 
-/** Created by tauheed on 10, June, 2021
- * ADIB,
- * AbuDhabi, UAE.
- */
+
 class ApiRequest {
     private  var path: String=""
     private  var body: String=""

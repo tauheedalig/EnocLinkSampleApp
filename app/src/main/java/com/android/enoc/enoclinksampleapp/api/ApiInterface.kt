@@ -6,10 +6,7 @@ import retrofit2.Call
 import retrofit2.http.*
 
 
-/** Created by tauheed on 07, June, 2021
- * ADIB,
- * AbuDhabi, UAE.
- */
+
 
 interface ApiInterface {
     @GET("{end_point}")

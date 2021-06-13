@@ -2,10 +2,6 @@ package com.android.enoc.enoclinksampleapp.camera.component
 
 import com.android.enoc.enoclinksampleapp.utils.Utils
 
-/** Created by tauheed on 07, June, 2021
- * ADIB,
- * AbuDhabi, UAE.
- */
 
 /**
  * Fluent API for Gravatar request configuration.

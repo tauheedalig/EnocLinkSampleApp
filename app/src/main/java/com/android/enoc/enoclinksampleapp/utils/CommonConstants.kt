@@ -1,9 +1,6 @@
 package com.android.enoc.enoclinksampleapp.utils
 
-/** Created by tauheed on 12, June, 2021
- * ADIB,
- * AbuDhabi, UAE.
- */
+
 class CommonConstants {
 
 

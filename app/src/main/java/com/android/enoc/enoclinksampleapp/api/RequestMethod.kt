@@ -5,10 +5,7 @@ import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
 
 
-/** Created by tauheed on 10, June, 2021
- * ADIB,
- * AbuDhabi, UAE.
- */
+
 public class RequestMethod {
 
 

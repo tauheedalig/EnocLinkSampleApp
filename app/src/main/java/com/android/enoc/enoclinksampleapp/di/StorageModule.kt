@@ -7,10 +7,7 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
-/** Created by tauheed on 12, June, 2021
- * ADIB,
- * AbuDhabi, UAE.
- */
+
 @InstallIn(SingletonComponent::class)
 @Module
 abstract class StorageModule {

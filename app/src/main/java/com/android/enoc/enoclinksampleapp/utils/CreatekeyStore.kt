@@ -17,11 +17,6 @@ import javax.crypto.CipherOutputStream
 import javax.security.auth.x500.X500Principal
 
 
-/**
- * Created by tauheed on 11, June, 2021
- * ADIB,
- * AbuDhabi, UAE.
- */
 internal class CreatekeyStore {
 
 companion object{

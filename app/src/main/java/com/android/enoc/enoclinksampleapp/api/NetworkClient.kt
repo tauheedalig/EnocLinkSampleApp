@@ -14,10 +14,6 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 
-/** Created by tauheed on 08, June, 2021
- * ADIB,
- * AbuDhabi, UAE.
- */
 
 
 @Module

@@ -3,11 +3,6 @@ package com.android.enoc.enoclinksampleapp.camera.component
 import com.android.enoc.enoclinksampleapp.camera.component.Gravatar.Builder
 
 
-/** Created by tauheed on 07, June, 2021
- * ADIB,
- * AbuDhabi, UAE.
- */
-
 
 /**
  * Easy Gravatar query building.

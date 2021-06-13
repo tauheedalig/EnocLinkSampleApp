@@ -5,10 +5,6 @@ import java.io.UnsupportedEncodingException
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
-/** Created by tauheed on 07, June, 2021
- * ADIB,
- * AbuDhabi, UAE.
- */
 
 
 internal object Utils {

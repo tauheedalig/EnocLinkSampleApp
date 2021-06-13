@@ -8,11 +8,7 @@ import java.nio.ByteBuffer
 import java.nio.charset.StandardCharsets
 import java.util.*
 
-/**
- * Created by tauheed on 06, June, 2021
- * ADIB,
- * AbuDhabi, UAE.
- */
+
 object Util {
     private const val MEGABYTE = 1024.0 * 1024.0
     private const val MAX_ALLOWED_FILE_SIZE = 10.0
