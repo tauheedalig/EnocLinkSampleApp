@@ -24,13 +24,14 @@ Application uses following Plugins, libraries or open source projects and latest
 
 - [Glide] - For Image downloading and resizing!
 - [Retrofit] - For Network request managment
-- [Dagger Hilt] - To remove boilerplate code and apply data binding.
+- [Dagger Hilt] - In order to remove hard dependency have used Hilt as dependency Injection
 - [NavController] - Navigation between UI components
 - [Architecture] - MVVM is used for clean code
 - [Gravatar] - Gravatar url is used fro fetching globally available profile picture
 - [ShapeableImageView] - Google ShapeableImageView is used to make profile picture fit in circle
 - [ConstraintLayout] - Android widget ConstraintLayout is used for UI design 
 - [gson]- for reponse parsing
+- Data Binding: Used Android component data binding to reduce boilerplate code which will result in less crashes 
 
 
 ## UpComing
