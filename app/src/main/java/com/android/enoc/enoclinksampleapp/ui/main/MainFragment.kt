@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.android.enoc.enoclinksampleapp.BR
 import com.android.enoc.enoclinksampleapp.R
+import com.android.enoc.enoclinksampleapp.databinding.MainFragmentBinding
 import com.android.enoc.enoclinksampleapp.storage.Storage
 import com.android.enoc.enoclinksampleapp.ui.main.data.model.LoggedInUser
 import com.android.enoc.enoclinksampleapp.utils.CommonConstants
@@ -25,13 +26,19 @@ class MainFragment : Fragment() {
 
     @Inject
     lateinit var mainViewModel: MainViewModel
-    lateinit var loadingProgressBar: ProgressBar
+
+    lateinit var dataBinding: MainFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        dataBinding = MainFragmentBinding.inflate(inflater, container, false)
+        dataBinding.setLifecycleOwner(this);
+        dataBinding.setVariable(BR.viewModel, mainViewModel);
+        dataBinding.executePendingBindings();
+
+        return dataBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -42,8 +49,8 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadingProgressBar = view.findViewById<ProgressBar>(R.id.progressBar)
-        loadingProgressBar.visibility=View.VISIBLE
+
+        dataBinding.progressBar.visibility = View.VISIBLE
         if (storage.getString(CommonConstants.REGISTERED_USER_ID).isNullOrBlank())
             navigateToLogin()
         else {
@@ -61,13 +68,15 @@ class MainFragment : Fragment() {
 
         mainViewModel.loginUser.observe(viewLifecycleOwner, Observer { loginUser ->
             loginUser ?: return@Observer
-            mainViewModel.loginUser.value?.let { navigateToUserDetails(it)
-                loadingProgressBar.visibility=View.GONE}
+            mainViewModel.loginUser.value?.let {
+                navigateToUserDetails(it)
+                dataBinding.progressBar.visibility = View.GONE
+            }
         })
     }
 
     private fun showLoginFailed() {
-        loadingProgressBar.visibility=View.GONE
+        dataBinding.progressBar.visibility = View.GONE
         val appContext = context?.applicationContext ?: return
         Toast.makeText(appContext, getString(R.string.login_failed), Toast.LENGTH_LONG).show()
 
@@ -89,8 +98,11 @@ class MainFragment : Fragment() {
 
     private fun navigateToUserDetails(loggedInUser: LoggedInUser) {
 
-        val direction = MainFragmentDirections.actionMainFragmentToDetailFragment(loggedInUser.userId,loggedInUser.token)
+        val direction = MainFragmentDirections.actionMainFragmentToDetailFragment(
+            loggedInUser.userId,
+            loggedInUser.token
+        )
         findNavController().navigate(direction)
-        loadingProgressBar.visibility=View.GONE
+        dataBinding.progressBar.visibility = View.GONE
     }
 }
