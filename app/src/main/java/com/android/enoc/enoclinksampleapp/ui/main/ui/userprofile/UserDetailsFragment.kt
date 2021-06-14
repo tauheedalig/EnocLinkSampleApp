@@ -17,14 +17,12 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -41,9 +39,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.user_details_fragment.*
+import kotlinx.android.synthetic.main.user_details_fragment.view.*
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -65,7 +63,7 @@ class UserDetailsFragment : Fragment() {
     private val args: UserDetailsFragmentArgs by navArgs()
     private val permissions = arrayOf(Manifest.permission.CAMERA)
     lateinit var  mContext:Context
-    lateinit var loadingProgressBar:ProgressBar
+    lateinit var dataBinding:UserDetailsFragmentBinding
 
 
     @Inject
@@ -90,26 +88,20 @@ class UserDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        val dataBinding = DataBindingUtil.inflate<UserDetailsFragmentBinding>(
-            inflater,
-            R.layout.user_details_fragment,
-            container,
-            false
-        )
+        dataBinding = UserDetailsFragmentBinding.inflate(inflater, container, false)
         dataBinding.setLifecycleOwner(this);
         dataBinding.setVariable(BR.viewModel, userDetailsModel);
         dataBinding.executePendingBindings();
+
         return dataBinding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val imageView = view.findViewById<ShapeableImageView>(R.id.imageView)
-         loadingProgressBar = view.findViewById<ProgressBar>(R.id.loading)
-        loadingProgressBar.visibility= View.VISIBLE
-        imageView.setOnClickListener {
+
+
+        dataBinding.loading.visibility= View.VISIBLE
+        dataBinding.imageView.setOnClickListener {
             if (isPermissionsAllowed(permissions, true, REQ_CAPTURE)) {
                 resultLauncher.launch(getPickImageIntent())
             }
@@ -119,7 +111,7 @@ class UserDetailsFragment : Fragment() {
         userDetailsModel.getUserInfo(args)
         userDetailsModel.emailId.observe(viewLifecycleOwner, Observer { emailId ->
             emailId ?: return@Observer
-            loadingProgressBar.visibility= View.GONE
+            loading.visibility= View.GONE
             initiateImageVerification()
         })
 
@@ -369,7 +361,7 @@ class UserDetailsFragment : Fragment() {
 
     private fun UploadImage(uploadImage: Boolean, resource: Bitmap,imgHash:String?) {
         if(uploadImage) {
-            loadingProgressBar.visibility= View.VISIBLE
+            loading.visibility= View.VISIBLE
             setImageUploadObserver()
             val byteArray = Util.convertBitmapToByteArray(resource, ONE_MEGA_BYTE)
             byteArray?.let { userDetailsModel.uploadImage(it,imgHash+ ".png",args) }
@@ -379,7 +371,7 @@ class UserDetailsFragment : Fragment() {
     private fun setImageUploadObserver() {
         userDetailsModel.imageUpLoaded.observe(viewLifecycleOwner, Observer { imageUpLoaded ->
             imageUpLoaded ?: return@Observer
-            loadingProgressBar.visibility= View.GONE
+            loading.visibility= View.GONE
            updateUiOnImageUpload(userDetailsModel.imageUpLoaded.value)
         })
     }
