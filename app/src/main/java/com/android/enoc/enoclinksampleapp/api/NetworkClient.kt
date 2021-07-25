@@ -56,7 +56,7 @@ object NetworkClient {
     @Provides
     @Singleton
     fun getClient(): Retrofit {
-        return getRetrofitInstance("https://enoc.com")
+        return getRetrofitInstance("https://abcd.com")
     }
 
 }
